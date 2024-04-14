@@ -5,11 +5,11 @@
 #include <unistd.h>
 #include "util.h"
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZZE 1024
 
 int main () {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    errif(sockfd == -1, "socket create errror");
+    errif(sockfd == -1, "socket create error");
 
     struct sockaddr_in serv_addr;
     bzero(&serv_addr, sizeof(serv_addr));
@@ -18,24 +18,24 @@ int main () {
     serv_addr.sin_port = htons(8888);
 
     errif(connect(sockfd, (sockaddr*)&serv_addr, sizeof(serv_addr)) == -1, "socket connect error");
-    
+
     while (true) {
-        char buf[BUFFER_SIZE];
+        char buf[BUFFER_SIZZE];
         bzero(&buf, sizeof(buf));
         scanf("%s", buf);
         ssize_t write_bytes = write(sockfd, buf, sizeof(buf));
         if (write_bytes == -1) {
-            printf("socket already disconnect, can't write any more!\n");
-            break;   
+            printf("socket alreay disconnected, can't write any more!\n");
+            break;
         }
         bzero(&buf, sizeof(buf));
         ssize_t read_bytes = read(sockfd, buf, sizeof(buf));
-        if (read_bytes > 0) {
-            printf("message from server: %s", buf);
+        if (write_bytes > 0) {
+            printf("message from server: %s\n", buf);
         } else if (read_bytes == 0) {
-            printf("server sockfd disconnect!\n");
+            printf("server socket disconnected!\n");
             break;
-        } else if (read_bytes == -1) {
+        }  else if (read_bytes == -1) {
             close(sockfd);
             errif(true, "socket read error");
         }
