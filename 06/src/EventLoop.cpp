@@ -19,7 +19,7 @@ void EventLoop::loop()
     {
         std::vector<Channel *> chs;
         chs = ep->poll();
-        for (auto it = chs.begin(); it != chs.end(); it++)
+        for (auto it = chs.begin(); it != chs.end(); ++it)
         {
             (*it)->handleEvent();
         }

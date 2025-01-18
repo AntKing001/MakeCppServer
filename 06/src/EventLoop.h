@@ -1,4 +1,5 @@
-#pragma
+#pragma once
+
 class Epoll;
 class Channel;
 class EventLoop
@@ -8,7 +9,7 @@ private:
     bool quit;
 
 public:
-    EventLoop(/* args */);
+    EventLoop();
     ~EventLoop();
 
     void loop();
